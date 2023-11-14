@@ -22,8 +22,12 @@ plot(sqtree)
 
 ###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
 
-rat_dat <- readxl::read_excel("data/TableS1.xlsx")
+rat_dat <- readxl::read_excel("data/TableS1.xlsx") #load and check data from Allf
 view(rat_dat)
 
-spec<- unique(rat_dat$Species)
+spec<- unique(rat_dat$Species) #select only species we need for Allf
+#Need to replace " " with "_"
+
+
+pruned.sqtree <- drop.tip(sqtree,sqtree$tip.label[-match(spec)])
 
