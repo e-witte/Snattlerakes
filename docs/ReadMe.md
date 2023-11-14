@@ -1,9 +1,3 @@
----
-title: "README"
-format: html
-editor: visual
----
-
 ## Reconstructing the Ancestral State Phylogeny of the Rattlesnake Rattle
 
 Vince Weber, Erik Witte, Shinji Yamamoto
