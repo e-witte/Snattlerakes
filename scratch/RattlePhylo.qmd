@@ -1,0 +1,14 @@
+#Recreating Rattlesnake phylogeny
+
+##Data from [Allf et al., 2016](https://www.journals.uchicago.edu/doi/full/10.1086/688017#_i5) & [Pyron et al., 2013](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-13-93#MOESM1)
+
+##Carried out by Eric Witte & Vince Weber
+
+##Install Packages
+install.packages("ape")
+
+##Load Packages
+library(ape)
+
+##Squamate tree (Pyron et al.)
+sqtree <- re
