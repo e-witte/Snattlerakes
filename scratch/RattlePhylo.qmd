@@ -29,8 +29,7 @@ spec<- unique(rat_dat$Species) #select only species we need for Allf
 spec1<- spec %>% 
   gsub(" ", "_", .)
   
+pruned.sqtree <- drop.tip(sqtree, anti_join(sqtree$tip.label, spec1))
 
-#Need to replace " " with "_"
-
-pruned.sqtree <- drop.tip(sqtree,sqtree$tip.label[-match(spec1)])
+plot(pruned.sqtree)
 
