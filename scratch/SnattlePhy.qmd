@@ -15,37 +15,43 @@ Carried out by Eric Witte, Vince Weber, & Shinji Yamamoto
 ```{r}
 ##Install Packages
 #install.packages("ape")
+#install.packages("ggtree")
+#install.packages("here")
 #install.packages("phytools")
 #install.packages("readxl")
 #install.packages("tidyverse")
 
 #installing ggtree said that it needed a different version of R, but here's a work around
-if (!require("BiocManager", quietly = TRUE)) 
-    install.packages("BiocManager")
+#if (!require("BiocManager", quietly = TRUE)) 
+ #   install.packages("BiocManager")
 
-BiocManager::install("ggtree")
+#BiocManager::install("ggtree")
 
 
 
 ##Load Packages
 library(ape)
 library(ggtree)
+library(here)
 library(phytools)
 library(readxl)
 library(tidyverse)
 ```
 
+## Pruning Colubridae & Viperidae From Squamata Phylogeny
+
 ```{r}
 ##Squamate tree (Pyron et al.)
-sqtree <- read.tree("data/12862_2013_2346_MOESM1_ESM.txt")
-plot(sqtree)
+sqtree <- read.tree(here("data/12862_2013_2346_MOESM1_ESM.txt"))
 
 ###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
 
-rat_dat <- readxl::read_excel("data/TableS1.xlsx") #load and check data from Allf
+rat_dat <- readxl::read_excel(here("data/TableS1.xlsx")) #load and check data from Allf
 view(rat_dat)
 
 spec<- unique(rat_dat$Species) #select only species we need for Allf
+
+# adding underscores to match the data format
 spec1<- spec %>% 
   gsub(" ", "_", .)
   
@@ -57,3 +63,5 @@ write.tree(pruned_tree)
 plot(pruned_tree)
 
 ```
+
+Still a mess
