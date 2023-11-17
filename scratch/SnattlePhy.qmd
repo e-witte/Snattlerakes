@@ -1,0 +1,46 @@
+---
+title: "SnattlePhy"
+format: html
+editor: visual
+---
+
+```{r}
+#Recreating Rattlesnake phylogeny
+
+##Data from [Allf et al., 2016](https://www.journals.uchicago.edu/doi/full/10.1086/688017#_i5) & [Pyron et al., 2013](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-13-93#MOESM1)
+
+##Carried out by Eric Witte & Vince Weber
+
+##Install Packages
+#install.packages("ape")
+#install.packages("phytools")
+#install.packages("readxl")
+#install.packages("tidyverse")
+
+##Load Packages
+library(ape)
+library(phytools)
+library(readxl)
+library(tidyverse)
+
+##Squamate tree (Pyron et al.)
+sqtree <- read.tree("data/12862_2013_2346_MOESM1_ESM.txt")
+plot(sqtree)
+
+###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
+
+rat_dat <- readxl::read_excel("data/TableS1.xlsx") #load and check data from Allf
+view(rat_dat)
+
+spec<- unique(rat_dat$Species) #select only species we need for Allf
+spec1<- spec %>% 
+  gsub(" ", "_", .)
+  
+#pruned_sqtree <- drop.tip(sqtree, sqtree$tip.label[-na.omit(match(spec1, sqtree$tip.label))])
+
+pruned_tree
+
+write.tree(pruned.sqtree)
+
+
+```
