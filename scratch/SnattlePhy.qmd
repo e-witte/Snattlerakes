@@ -4,25 +4,38 @@ format: html
 editor: visual
 ---
 
+# Recreating Rattlesnake Rattle Phylogeny
+
+Data from [Allf et al., 2016](https://www.journals.uchicago.edu/doi/full/10.1086/688017#_i5) & [Pyron et al., 2013](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-13-93#MOESM1)
+
+Carried out by Eric Witte, Vince Weber, & Shinji Yamamoto
+
+## Installing Packages
+
 ```{r}
-#Recreating Rattlesnake phylogeny
-
-##Data from [Allf et al., 2016](https://www.journals.uchicago.edu/doi/full/10.1086/688017#_i5) & [Pyron et al., 2013](https://bmcecolevol.biomedcentral.com/articles/10.1186/1471-2148-13-93#MOESM1)
-
-##Carried out by Eric Witte & Vince Weber
-
 ##Install Packages
 #install.packages("ape")
 #install.packages("phytools")
 #install.packages("readxl")
 #install.packages("tidyverse")
 
+#installing ggtree said that it needed a different version of R, but here's a work around
+if (!require("BiocManager", quietly = TRUE)) 
+    install.packages("BiocManager")
+
+BiocManager::install("ggtree")
+
+
+
 ##Load Packages
 library(ape)
+library(ggtree)
 library(phytools)
 library(readxl)
 library(tidyverse)
+```
 
+```{r}
 ##Squamate tree (Pyron et al.)
 sqtree <- read.tree("data/12862_2013_2346_MOESM1_ESM.txt")
 plot(sqtree)
@@ -38,9 +51,9 @@ spec1<- spec %>%
   
 #pruned_sqtree <- drop.tip(sqtree, sqtree$tip.label[-na.omit(match(spec1, sqtree$tip.label))])
 
-pruned_tree
+pruned_tree <- drop.tip(sqtree, setdiff(sqtree$tip.labels, spec1))
 
-write.tree(pruned.sqtree)
-
+write.tree(pruned_tree)
+plot(pruned_tree)
 
 ```

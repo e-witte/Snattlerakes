@@ -5,10 +5,10 @@
 ##Carried out by Eric Witte & Vince Weber
 
 ##Install Packages
-install.packages("ape")
-install.packages("phytools")
-install.packages("readxl")
-install.packages("tidyverse")
+#install.packages("ape")
+#install.packages("phytools")
+#install.packages("readxl")
+#install.packages("tidyverse")
 
 ##Load Packages
 library(ape)
@@ -29,7 +29,9 @@ spec<- unique(rat_dat$Species) #select only species we need for Allf
 spec1<- spec %>% 
   gsub(" ", "_", .)
   
-pruned.sqtree <- drop.tip(sqtree, anti_join(sqtree$tip.label, spec1))
+#pruned_sqtree <- drop.tip(sqtree, sqtree$tip.label[-na.omit(match(spec1, sqtree$tip.label))])
 
-plot(pruned.sqtree)
+pruned_tree
+
+write.tree(pruned.sqtree)
 
