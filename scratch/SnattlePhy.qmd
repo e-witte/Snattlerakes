@@ -74,4 +74,31 @@ tibble(rat_spec = spec,
 
 ```
 
-Still a mess
+# Means of vibration rate and duration
+
+```{r}
+# eliminate NA, calculate the mean "Tail vibration rate (Max, Hz)" in rat_dat for each species, species name not in _
+
+vib_mean_rate <- rat_dat %>%
+  drop_na(`Tail vibration rate (Max, Hz)`) %>% 
+  group_by(Species)%>%
+  summarize(mean_rate = mean(`Tail vibration rate (Max, Hz)`),
+            .groups = "drop")
+
+view(vib_mean_rate)
+
+# eliminate NA, calculate the mean "Tail vibration duration (Max, sec.)" in rat_dat for each species, species name not in _
+
+dur_mean_rate <- rat_dat %>%
+  drop_na(`Tail vibration duration (Max, sec.)`) %>% 
+  group_by(Species)%>%
+  summarize(mean_rate = mean(`Tail vibration duration (Max, sec.)`),
+            .groups = "drop")
+
+view(dur_mean_rate)
+
+#check ?str_replace to change spaces into _ in each tibble
+
+
+```
+
