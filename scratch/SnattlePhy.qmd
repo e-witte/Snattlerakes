@@ -40,27 +40,37 @@ library(tidyverse)
 
 ## Pruning Colubridae & Viperidae From Squamata Phylogeny
 
+Entire Squamata Tree
+
 ```{r}
 ##Squamate tree (Pyron et al.)
 sqtree <- read.tree(here("data/12862_2013_2346_MOESM1_ESM.txt"))
+plot(sqtree)
+view(sqtree$tip.label)
+```
 
+```{r}
 ###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
 
 rat_dat <- readxl::read_excel(here("data/TableS1.xlsx")) #load and check data from Allf
 view(rat_dat)
 
-spec<- unique(rat_dat$Species) #select only species we need for Allf
-
+ #select only species we need for Allf
+spec <- unique(rat_dat$Species) %>% 
 # adding underscores to match the data format
-spec1<- spec %>% 
   gsub(" ", "_", .)
-  
-#pruned_sqtree <- drop.tip(sqtree, sqtree$tip.label[-na.omit(match(spec1, sqtree$tip.label))])
 
-pruned_tree <- drop.tip(sqtree, setdiff(sqtree$tip.labels, spec1))
+pruned_tree <- keep.tip(sqtree, spec)
+view(sqtree$tip.label)
+view(spec1)
+pruned_tree
 
 write.tree(pruned_tree)
 plot(pruned_tree)
+
+tibble(rat_spec = spec,
+       in_tree = rat_spec %in% sqtree$tip.label) %>% 
+  view()
 
 ```
 
