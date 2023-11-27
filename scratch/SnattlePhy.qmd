@@ -60,15 +60,13 @@ view(rat_dat)
  #select only species we need for Allf
 spec <- unique(rat_dat$Species) %>% 
 # adding underscores to match the data format
-  gsub(" ", "_", .)
 
-pruned_tree <- keep.tip(sqtree, spec)
-view(sqtree$tip.label)
-view(spec1)
-pruned_tree
+rat_edit <- read.csv("data/rat_edit.csv")
+view(rat_edit)
 
-write.tree(pruned_tree)
-plot(pruned_tree)
+tip <- rat_edit$rat_spec
+
+plot(keep.tip(sqtree, tip))
 
 #Checking whether rat_spec species are the same as in tip labels
 #tibble(rat_spec = spec,
@@ -103,4 +101,10 @@ view(dur_mean_rate)
 #check ?str_replace to change spaces into _ in each tibble
 
 
+```
+
+Plot tree
+
+```{r}
+ggtree(keep.tip(sqtree, tip), aes(color = ))
 ```
