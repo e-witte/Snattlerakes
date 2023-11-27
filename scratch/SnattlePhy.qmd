@@ -54,15 +54,14 @@ Matching the data and pruning the tree
 ```{r}
 ###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
 
-rat_dat <- readxl::read_excel(here("data/TableS1.xlsx")) #load and check data from Allf
+rat_dat <- read_csv(here("data/rat_edit.csv")) #load and check data from Allf
 view(rat_dat)
 
  #select only species we need for Allf
-spec <- unique(rat_dat$Species) %>% 
-# adding underscores to match the data format
-  gsub(" ", "_", .)
+spec <- unique(rat_dat$Species)
 
-pruned_tree <- keep.tip(sqtree, spec)
+# from the blog: pruned.tree<-drop.tip(tree, setdiff(tree$tip.label, species));
+pruned_tree <- drop.tip(sqtree, (sqtree$tip.label, spec))
 view(sqtree$tip.label)
 view(spec1)
 pruned_tree
