@@ -46,8 +46,10 @@ Entire Squamata Tree
 ##Squamate tree (Pyron et al.)
 sqtree <- read.tree(here("data/12862_2013_2346_MOESM1_ESM.txt"))
 plot(sqtree)
-view(sqtree$tip.label)
+
 ```
+
+Matching the data and pruning the tree
 
 ```{r}
 ###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
@@ -68,9 +70,10 @@ pruned_tree
 write.tree(pruned_tree)
 plot(pruned_tree)
 
-tibble(rat_spec = spec,
-       in_tree = rat_spec %in% sqtree$tip.label) %>% 
-  view()
+#Checking whether rat_spec species are the same as in tip labels
+#tibble(rat_spec = spec,
+ #      in_tree = rat_spec %in% sqtree$tip.label) %>% 
+  #view()
 
 ```
 
@@ -101,4 +104,3 @@ view(dur_mean_rate)
 
 
 ```
-
