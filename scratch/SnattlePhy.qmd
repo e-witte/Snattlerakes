@@ -76,11 +76,23 @@ view(dur_mean_rate)
 
 #check ?str_replace to change spaces into _ in each tibble
 
+rat_edit_dur <- rat_edit %>% 
+  left_join(dur_mean_rate, by = c(rat_spec = "Species")) %>% 
+  drop_na()
 
+rat_edit %>% 
+  left_join(vib_mean_rate, by = c(rat_spec = "Species"))
 ```
 
 Plot tree
 
 ```{r}
-ggtree(keep.tip(sqtree, tip), aes(color = ))
+tip<- rat_edit_dur$rat_spec
+
+pruned_tree <- keep.tip(sqtree, tip)
+
+obj<-contMap(pruned_tree, rat_rate, plot=FALSE)
+
+plot(setMap(obj, invert = TRUE))
+
 ```
