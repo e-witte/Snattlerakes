@@ -58,6 +58,7 @@ rat_dat <- read_csv(here("data/rat_edit.csv")) #load and check data from Allf
 view(rat_dat)
 
  #select only species we need for Allf
+<<<<<<< HEAD
 spec <- unique(rat_dat$Species)
 
 # from the blog: pruned.tree<-drop.tip(tree, setdiff(tree$tip.label, species));
@@ -65,9 +66,17 @@ pruned_tree <- drop.tip(sqtree, (sqtree$tip.label, spec))
 view(sqtree$tip.label)
 view(spec1)
 pruned_tree
+=======
+spec <- unique(rat_dat$Species) %>% 
+# adding underscores to match the data format
 
-write.tree(pruned_tree)
-plot(pruned_tree)
+rat_edit <- read.csv("data/rat_edit.csv")
+view(rat_edit)
+>>>>>>> b727fe4247a15c229c661d29f222cd81c82ba1ba
+
+tip <- rat_edit$rat_spec
+
+plot(keep.tip(sqtree, tip))
 
 #Checking whether rat_spec species are the same as in tip labels
 #tibble(rat_spec = spec,
@@ -102,4 +111,10 @@ view(dur_mean_rate)
 #check ?str_replace to change spaces into _ in each tibble
 
 
+```
+
+Plot tree
+
+```{r}
+ggtree(keep.tip(sqtree, tip), aes(color = ))
 ```
