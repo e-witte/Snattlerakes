@@ -99,6 +99,6 @@ names(rat_rate) <- rat_edit_dur$rat_spec
 
 obj<-contMap(pruned_tree, rat_rate, plot=FALSE)
 
-plot(setMap(obj, invert = TRUE))
+plot( setMap(obj, invert = TRUE), fsize=c(0.7,1), leg.txt = "duration of vibration (seconds)", lwd = 3)
 
 ```
