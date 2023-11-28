@@ -37,7 +37,7 @@ Matching the data and pruning the tree
 
 ```{r}
 rat_edit <- read.csv(here("data/rat_edit.csv"))
-rat_dat <- readxl::read_excel("data/TableS1.xlsx")
+rat_dat <- readxl::read_excel(here("data/TableS1.xlsx"))
 #Defining the tree tips
 tip <- rat_edit$rat_spec
 
@@ -72,6 +72,9 @@ dur_mean_rate <- rat_dat %>%
   summarize(mean_rate = mean(`Tail vibration duration (Max, sec.)`),
             .groups = "drop")
 
+#add underscores
+dur_mean_rate$Species <- gsub(" ", "_", dur_mean_rate$Species)
+
 view(dur_mean_rate)
 
 #check ?str_replace to change spaces into _ in each tibble
@@ -80,16 +83,19 @@ rat_edit_dur <- rat_edit %>%
   left_join(dur_mean_rate, by = c(rat_spec = "Species")) %>% 
   drop_na()
 
-rat_edit %>% 
-  left_join(vib_mean_rate, by = c(rat_spec = "Species"))
+#rat_edit %>% 
+ # left_join(vib_mean_rate, by = c(rat_spec = "Species"))
 ```
 
-Plot tree
+## Plotting Color Ramp Tree For Seconds
 
 ```{r}
 tip<- rat_edit_dur$rat_spec
 
 pruned_tree <- keep.tip(sqtree, tip)
+
+rat_rate <- rat_edit_dur$mean_rate
+names(rat_rate) <- rat_edit_dur$rat_spec
 
 obj<-contMap(pruned_tree, rat_rate, plot=FALSE)
 
