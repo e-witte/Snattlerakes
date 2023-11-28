@@ -36,10 +36,10 @@ plot(sqtree)
 Matching the data and pruning the tree
 
 ```{r}
-rat_data <- read.csv(here("data/rat_edit.csv"))
-
+rat_edit <- read.csv(here("data/rat_edit.csv"))
+rat_dat <- readxl::read_excel("data/TableS1.xlsx")
 #Defining the tree tips
-tip <- rat_data$rat_spec
+tip <- rat_edit$rat_spec
 
 #plotting the tree
 plot(keep.tip(sqtree, tip))
