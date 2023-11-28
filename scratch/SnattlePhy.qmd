@@ -10,25 +10,9 @@ Data from [Allf et al., 2016](https://www.journals.uchicago.edu/doi/full/10.1086
 
 Carried out by Eric Witte, Vince Weber, & Shinji Yamamoto
 
-## Installing Packages
+## Load Packages
 
 ```{r}
-##Install Packages
-#install.packages("ape")
-#install.packages("ggtree")
-#install.packages("here")
-#install.packages("phytools")
-#install.packages("readxl")
-#install.packages("tidyverse")
-
-#installing ggtree said that it needed a different version of R, but here's a work around
-#if (!require("BiocManager", quietly = TRUE)) 
- #   install.packages("BiocManager")
-
-#BiocManager::install("ggtree")
-
-
-
 ##Load Packages
 library(ape)
 library(ggtree)
@@ -52,30 +36,12 @@ plot(sqtree)
 Matching the data and pruning the tree
 
 ```{r}
-###prune tree; here is my [guide](http://blog.phytools.org/2011/03/prune-tree-to-list-of-taxa.html)
+rat_data <- read.csv(here("data/rat_edit.csv"))
 
-rat_dat <- read_csv(here("data/rat_edit.csv")) #load and check data from Allf
-view(rat_dat)
+#Defining the tree tips
+tip <- rat_data$rat_spec
 
- #select only species we need for Allf
-<<<<<<< HEAD
-spec <- unique(rat_dat$Species)
-
-# from the blog: pruned.tree<-drop.tip(tree, setdiff(tree$tip.label, species));
-pruned_tree <- drop.tip(sqtree, (sqtree$tip.label, spec))
-view(sqtree$tip.label)
-view(spec1)
-pruned_tree
-=======
-spec <- unique(rat_dat$Species) %>% 
-# adding underscores to match the data format
-
-rat_edit <- read.csv("data/rat_edit.csv")
-view(rat_edit)
->>>>>>> b727fe4247a15c229c661d29f222cd81c82ba1ba
-
-tip <- rat_edit$rat_spec
-
+#plotting the tree
 plot(keep.tip(sqtree, tip))
 
 #Checking whether rat_spec species are the same as in tip labels
