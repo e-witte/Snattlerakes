@@ -56,49 +56,66 @@ plot(keep.tip(sqtree, tip))
 ```{r}
 # eliminate NA, calculate the mean "Tail vibration rate (Max, Hz)" in rat_dat for each species, species name not in _
 
-vib_mean_rate <- rat_dat %>%
+vib_mean <- rat_dat %>%
   drop_na(`Tail vibration rate (Max, Hz)`) %>% 
   group_by(Species)%>%
   summarize(mean_rate = mean(`Tail vibration rate (Max, Hz)`),
             .groups = "drop")
 
-view(vib_mean_rate)
+# view(vib_mean_rate)
+vib_mean$Species <- gsub(" ", "_", vib_mean$Species)
 
+rat_edit_vib <- rat_edit %>% 
+  left_join(vib_mean, by = c(rat_spec = "Species")) %>% 
+  drop_na()
 # eliminate NA, calculate the mean "Tail vibration duration (Max, sec.)" in rat_dat for each species, species name not in _
 
-dur_mean_rate <- rat_dat %>%
+dur_mean <- rat_dat %>%
   drop_na(`Tail vibration duration (Max, sec.)`) %>% 
   group_by(Species)%>%
   summarize(mean_rate = mean(`Tail vibration duration (Max, sec.)`),
             .groups = "drop")
 
 #add underscores
-dur_mean_rate$Species <- gsub(" ", "_", dur_mean_rate$Species)
+dur_mean$Species <- gsub(" ", "_", dur_mean$Species)
 
-view(dur_mean_rate)
+# view(dur_mean_rate)
 
 #check ?str_replace to change spaces into _ in each tibble
 
 rat_edit_dur <- rat_edit %>% 
-  left_join(dur_mean_rate, by = c(rat_spec = "Species")) %>% 
+  left_join(dur_mean, by = c(rat_spec = "Species")) %>% 
   drop_na()
 
 #rat_edit %>% 
  # left_join(vib_mean_rate, by = c(rat_spec = "Species"))
 ```
 
-## Plotting Color Ramp Tree For Seconds
+## Plotting Color Ramp Tree For Vibration Duration (Seconds)
 
 ```{r}
 tip<- rat_edit_dur$rat_spec
 
 pruned_tree <- keep.tip(sqtree, tip)
 
-rat_rate <- rat_edit_dur$mean_rate
-names(rat_rate) <- rat_edit_dur$rat_spec
+rat_dur <- rat_edit_dur$mean_rate
+names(rat_dur) <- rat_edit_dur$rat_spec
 
 obj<-contMap(pruned_tree, rat_rate, plot=FALSE)
 
 plot( setMap(obj, invert = TRUE), fsize=c(0.7,1), leg.txt = "duration of vibration (seconds)", lwd = 3)
 
+```
+
+```{r}
+tip<- rat_edit_vib$rat_spec
+
+pruned_tree <- keep.tip(sqtree, tip)
+
+rat_vib <- rat_edit_vib$mean_rate
+names(rat_vib) <- rat_edit_vib$rat_spec
+
+obj<-contMap(pruned_tree, rat_vib, plot=FALSE)
+
+plot( setMap(obj, invert = TRUE), fsize=c(0.7,1), leg.txt = "rate of vibration (Hz)", lwd = 3)
 ```
