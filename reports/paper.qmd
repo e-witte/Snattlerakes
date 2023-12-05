@@ -1,0 +1,11 @@
+#Snattlerakes
+##Vince, Shinji, & Eric
+
+##1. Paper summary
+Allf et al., 2016 examines the behavior of tail rattling across rattlesnakes. It applies ancestral trait reconstruction to look for evolutionary origins of the rattling behavior. In addition to simply yes/no rattling behavior, this paper looks at duration and frequency of vibration for trait reconstruction. Crotalus atrox emerges as an outlier for longest vibration, while Crotalus polystictus is an outlier as the fastest rattler. 
+##2. Data summary
+The phylogeny is adapted and trimmed from a squamate phylogeny published by Pyron et al. in 2013. Pyron et al.'s data are available in tree format. Additional measurements of length and frequency of rattling behavior is gathered from video recordings of museum and zoo holdings. These are averaged within a species where more than one specimen is analyzed. Data are presented as supplemental excel files. 
+##3. Methods summary
+Firstly, we loaded and plotted the squamate tree. The tree contained many species that did not have corresponding rattling data, so we pruned based on what was av
+##4. Results summary
+##5. Discussion
